@@ -287,6 +287,8 @@ function updateValues ()
         for (let i = 0; i < allParameters.length; i++)
         {
             document.getElementById(allParameters[i]).textContent = "%";
+            document.getElementById(allParameters[i] + "Lower").textContent = "Lower";
+            document.getElementById(allParameters[i] + "Higher").textContent = "Higher";
         }
     }
 
