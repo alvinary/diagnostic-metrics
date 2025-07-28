@@ -352,8 +352,8 @@ const spanishPairs = [
   ["negativeTestLikelihoodRatioLabel", "Razón de Verosimilitud Prueba-"],
   ["positiveEntropyReductionLabel", "Reducción de la Entropía Negativa"],
   ["negativeEntropyReductionLabel", "Reducción de la Entropía Positiva"],
-  ["positiveFScoreLabel", "F-Score Positivo"],
-  ["negativeFScoreLabel", "F-score Negativo"],
+  ["positiveFScoreLabel", "Puntaje F Positivo"],
+  ["negativeFScoreLabel", "Puntaje F Negativo"],
   ["kappaLabel", "Kappa de Cohen"],
   ["diagnosticAccuracyLabel", "Precisión Diagnóstica"]
 ];
@@ -401,7 +401,6 @@ function switchLanguages ()
     for (let i = 0; i < allTextElements.length; i++)
     {
       const textElementId = allTextElements[i];
-      console.log(textElementId);
       document.getElementById(textElementId).textContent = toSpanish.get(textElementId);
     }
     // Set the language button content so that language mode flags work and users see the right target language name in the button text
