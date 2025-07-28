@@ -13,12 +13,17 @@
 <div class="bg-slate-200">
 <div class="my-16">
   <div>
+
+    <div class="flex mx-8 sm:justify-end">
+      <button id="languageButton" class="h-8 w-64 sm:w-80 rounded-lg bg-slate-100 text-center">Ver en castellano 🇪🇸</button>
+    </div>
+
     <div class="bg-slate-300 mx-8 my-8 rounded-lg">
       <div class="mx-6">
         <br>
-        <p><b>Instructions</b></p>
-        <p>Type your data in the cells on the grid below.</p>
-        <p>When all four input values are introduced, parameter values are shown on the table to the right.</p>
+        <p><b id="instructions">Instructions</b></p>
+        <p id="instructionsInput">Type your data in the cells on the grid below.</p>
+        <p id="instructionsExplain">When all four input values are introduced, parameter values are shown on the table to the right.</p>
         <br>
       </div>
     </div>
@@ -38,97 +43,97 @@
     <div class="mx-4 my-4 flex flex-col gap-2">
       
       <div class="flex flex-row gap-2">
-        <div class="h-16 sm:h-8 w-64 sm:w-80  rounded-lg bg-slate-300 text-center"> <b> Parameter </b> </div>
-        <div class="h-16 sm:h-8 w-24 rounded-lg bg-lime-400 text-center"> <b> Value </b> (<b>%</b>) </div>
-        <div class="h-16 sm:h-8 w-[200px] rounded-lg bg-orange-400 text-center"> <b> Confidence Interval </b> </div>
+        <div class="h-16 sm:h-8 w-64 sm:w-80  rounded-lg bg-slate-300 text-center"> <b id="parametersColumnLabel"> Parameter </b> </div>
+        <div class="h-16 sm:h-8 w-24 rounded-lg bg-lime-400 text-center"> <b id="valuesColumnLabel"> Value (%) </b> </div>
+        <div class="h-16 sm:h-8 w-[200px] rounded-lg bg-orange-400 text-center"> <b id="confidenceIntervalsLabel"> Confidence Interval </b> </div>
       </div>
 
       <div class="flex flex-row gap-2">
-        <div class="h-8 w-64 sm:w-80 rounded-lg bg-slate-100 text-center">Sensitivity</div>
+        <div id="sensitivityLabel" class="h-8 w-64 sm:w-80 rounded-lg bg-slate-100 text-center">Sensitivity</div>
         <div id="sensitivity" class="h-8 w-24 rounded-lg bg-lime-300 text-center">%</div>
         <div id="sensitivityLower" class="h-8 w-24 rounded-lg bg-orange-300 text-center">Lower</div>
         <div id="sensitivityHigher" class="h-8 w-24 rounded-lg bg-orange-300 text-center">Higher</div>
       </div>
 
       <div class="flex flex-row gap-2">
-        <div class="h-8 w-64 sm:w-80 rounded-lg bg-slate-100 text-center">Specificity</div>
+        <div id="specificityLabel" class="h-8 w-64 sm:w-80 rounded-lg bg-slate-100 text-center">Specificity</div>
         <div id="specificity" class="h-8 w-24 rounded-lg bg-lime-300 text-center">%</div>
         <div id="specificityLower" class="h-8 w-24 rounded-lg bg-orange-300 text-center">Lower</div>
         <div id="specificityHigher" class="h-8 w-24 rounded-lg bg-orange-300 text-center">Higher</div>
       </div>
 
       <div class="flex flex-row gap-2">
-        <div class="h-16 sm:h-8 w-64 sm:w-80 rounded-lg bg-slate-100 text-center">Positive Predictive Value</div>
+        <div id="positivePredictiveValueLabel" class="h-16 sm:h-8 w-64 sm:w-80 rounded-lg bg-slate-100 text-center">Positive Predictive Value</div>
         <div id="positivePredictiveValue" class="h-16 sm:h-8 w-24 rounded-lg bg-lime-300 text-center">%</div>
         <div id="positivePredictiveValueLower" class="h-16 sm:h-8 w-24 rounded-lg bg-orange-300 text-center">Lower</div>
         <div id="positivePredictiveValueHigher" class="h-16 sm:h-8 w-24 rounded-lg bg-orange-300 text-center">Higher</div>
       </div>
 
       <div class="flex flex-row gap-2">
-        <div class="h-16 sm:h-8 w-64 sm:w-80 rounded-lg bg-slate-100 text-center">Negative Predictive Value</div>
+        <div id="negativePredictiveValueLabel" class="h-16 sm:h-8 w-64 sm:w-80 rounded-lg bg-slate-100 text-center">Negative Predictive Value</div>
         <div id="negativePredictiveValue" class="h-16 sm:h-8 w-24 rounded-lg bg-lime-300 text-center">%</div>
         <div id="negativePredictiveValueLower" class="h-16 sm:h-8 w-24 rounded-lg bg-orange-300 text-center">Lower</div>
         <div id="negativePredictiveValueHigher" class="h-16 sm:h-8 w-24 rounded-lg bg-orange-300 text-center">Higher</div>
       </div>
 
       <div class="flex flex-row gap-2">
-        <div class="h-8 w-64 sm:w-80 rounded-lg bg-slate-100 text-center">Prevalence</div>
+        <div id="prevalenceLabel" class="h-8 w-64 sm:w-80 rounded-lg bg-slate-100 text-center">Prevalence</div>
         <div id="prevalence" class="h-8 w-24 rounded-lg bg-lime-300 text-center">%</div>
         <div id="prevalenceLower" class="h-8 w-24 rounded-lg bg-orange-300 text-center">Lower</div>
         <div id="prevalenceHigher" class="h-8 w-24 rounded-lg bg-orange-300 text-center">Higher</div>
       </div>
 
       <div class="flex flex-row gap-2">
-        <div class="h-8 w-64 sm:w-80 rounded-lg bg-slate-100 text-center">Diagnostic Accuracy</div>
+        <div id="diagnosticAccuracyLabel" class="h-8 w-64 sm:w-80 rounded-lg bg-slate-100 text-center">Diagnostic Accuracy</div>
         <div id="diagnosticAccuracy" class="h-8 w-24 rounded-lg bg-lime-300 text-center">%</div>
         <div id="diagnosticAccuracyLower" class="h-8 w-24 rounded-lg bg-orange-300 text-center">Lower</div>
         <div id="diagnosticAccuracyHigher" class="h-8 w-24 rounded-lg bg-orange-300 text-center">Higher</div>
       </div>
 
       <div class="flex flex-row gap-2">
-        <div class="h-8 w-64 sm:w-80 rounded-lg bg-slate-100 text-center">Positive Test LR</div>
+        <div id="positiveTestLikelihoodRatioLabel" class="h-8 w-64 sm:w-80 rounded-lg bg-slate-100 text-center">Positive Test LR</div>
         <div id="positiveTestLikelihoodRatio" class="h-8 w-24 rounded-lg bg-lime-300 text-center">%</div>
         <div id="positiveTestLikelihoodRatioLower" class="h-8 w-24 rounded-lg bg-orange-300 text-center">Lower</div>
         <div id="positiveTestLikelihoodRatioHigher" class="h-8 w-24 rounded-lg bg-orange-300 text-center">Higher</div>
       </div>
 
       <div class="flex flex-row gap-2">
-        <div class="h-8 w-64 sm:w-80 rounded-lg bg-slate-100 text-center">Negative Test LR</div>
+        <div id="negativeTestLikelihoodRatioLabel" class="h-8 w-64 sm:w-80 rounded-lg bg-slate-100 text-center">Negative Test LR</div>
         <div id="negativeTestLikelihoodRatio" class="h-8 w-24 rounded-lg bg-lime-300 text-center">%</div>
         <div id="negativeTestLikelihoodRatioLower" class="h-8 w-24 rounded-lg bg-orange-300 text-center">Lower</div>
         <div id="negativeTestLikelihoodRatioHigher" class="h-8 w-24 rounded-lg bg-orange-300 text-center">Higher</div>
       </div>
 
       <div class="flex flex-row gap-2">
-        <div class="h-16 sm:h-8 w-64 sm:w-80 rounded-lg bg-slate-100 text-center">Positive Test Entropy Reduction</div>
+        <div id="positiveEntropyReductionLabel" class="h-16 sm:h-8 w-64 sm:w-80 rounded-lg bg-slate-100 text-center">Positive Test Entropy Reduction</div>
         <div id="positiveEntropyReduction" class="h-16 sm:h-8 w-24 rounded-lg bg-lime-300 text-center">%</div>
         <div id="positiveEntropyReductionLower" class="h-16 sm:h-8 w-24 rounded-lg bg-orange-300 text-center"></div>
         <div id="positiveEntropyReductionHigher" class="h-16 sm:h-8 w-24 rounded-lg bg-orange-300 text-center"></div>
       </div>
 
       <div class="flex flex-row gap-2">
-        <div class="h-16 sm:h-8 w-64 sm:w-80 rounded-lg bg-slate-100 text-center">Negative Test Entropy Reduction</div>
+        <div id="negativeEntropyReductionLabel" class="h-16 sm:h-8 w-64 sm:w-80 rounded-lg bg-slate-100 text-center">Negative Test Entropy Reduction</div>
         <div id="negativeEntropyReduction" class="h-16 sm:h-8 w-24 rounded-lg bg-lime-300 text-center">%</div>
         <div id="negativeEntropyReductionLower" class="h-16 sm:h-8 w-24 rounded-lg bg-orange-300 text-center"></div>
         <div id="negativeEntropyReductionHigher" class="h-16 sm:h-8 w-24 rounded-lg bg-orange-300 text-center"></div>
       </div>
       
       <div class="flex flex-row gap-2">
-        <div class="h-8 w-64 sm:w-80 rounded-lg bg-slate-100 text-center">Positive F-Score</div>
+        <div id="positiveFScoreLabel" class="h-8 w-64 sm:w-80 rounded-lg bg-slate-100 text-center">Positive F-Score</div>
         <div id="positiveFScore" class="h-8 w-24 rounded-lg bg-lime-300 text-center">%</div>
         <div id="positiveFScoreLower" class="h-8 w-24 rounded-lg bg-orange-300 text-center">Lower</div>
         <div id="positiveFScoreHigher" class="h-8 w-24 rounded-lg bg-orange-300 text-center">Higher</div>
       </div>
 
       <div class="flex flex-row gap-2">
-        <div class="h-8 w-64 sm:w-80 rounded-lg bg-slate-100 text-center">Negative F-Score</div>
+        <div id="negativeFScoreLabel" class="h-8 w-64 sm:w-80 rounded-lg bg-slate-100 text-center">Negative F-Score</div>
         <div id="negativeFScore" class="h-8 w-24 rounded-lg bg-lime-300 text-center">%</div>
         <div id="negativeFScoreLower" class="h-8 w-24 rounded-lg bg-orange-300 text-center">Lower</div>
         <div id="negativeFScoreHigher" class="h-8 w-24 rounded-lg bg-orange-300 text-center">Higher</div>
       </div>
 
       <div class="flex flex-row gap-2">
-        <div class="h-8 w-64 sm:w-80 rounded-lg bg-slate-100 text-center">Cohen's Kappa</div>
+        <div id="kappaLabel" class="h-8 w-64 sm:w-80 rounded-lg bg-slate-100 text-center">Cohen's Kappa</div>
         <div id="kappa" class="h-8 w-24 rounded-lg bg-lime-300 text-center">%</div>
         <div id="kappaLower" class="h-8 w-24 rounded-lg bg-orange-300 text-center">Lower</div>
         <div id="kappaHigher" class="h-8 w-24 rounded-lg bg-orange-300 text-center">Higher</div>
@@ -142,6 +147,8 @@
 </body>
 
 <script>
+
+// Metrics
 
 const allParameters = ["sensitivity", "specificity", "positivePredictiveValue", "negativePredictiveValue", "prevalence", "diagnosticAccuracy", "positiveTestLikelihoodRatio", "negativeTestLikelihoodRatio", "positiveEntropyReduction", "negativeEntropyReduction", "positiveFScore", "negativeFScore", "kappa"];
 
@@ -291,11 +298,21 @@ function updateValues ()
     }
     else
     {
+        const languageButton = document.getElementById(languageButtonId);
+        const englishMode = languageButton.textContent == spanish;
+        const spanishMode = languageButton.textContent == english;
+
         for (let i = 0; i < allParameters.length; i++)
         {
             document.getElementById(allParameters[i]).textContent = "%";
 
-            if (!noConfidenceIntervals.has(allParameters[i]))
+            if (!noConfidenceIntervals.has(allParameters[i]) && spanishMode)
+            {
+              document.getElementById(allParameters[i] + "Lower").textContent = "Inferior";
+              document.getElementById(allParameters[i] + "Higher").textContent = "Superior";
+            }
+
+            if (!noConfidenceIntervals.has(allParameters[i]) && englishMode)
             {
               document.getElementById(allParameters[i] + "Lower").textContent = "Lower";
               document.getElementById(allParameters[i] + "Higher").textContent = "Higher";
@@ -306,10 +323,109 @@ function updateValues ()
     // Set
 }
 
-document.getElementById("true_positives").addEventListener('input', () => {updateValues();});
-document.getElementById("false_positives").addEventListener('input', () => {updateValues();});
-document.getElementById("true_negatives").addEventListener('input', () => {updateValues();});
-document.getElementById("false_negatives").addEventListener('input', () => {updateValues();});
+// Localization
+
+const spanish = "Ver en castellano 🇪🇸"
+const english = "Switch to English 🇬🇧"
+
+const languageButtonId = "languageButton";
+
+const allColumnLabels = ["parametersColumnLabel", "valuesColumnLabel", "confidenceIntervalsLabel"];
+const allParameterLabels = allParameters.map((name) => name + "Label");
+
+const allTextElements = ["instructions", "instructionsInput", "instructionsExplain", ...allColumnLabels, ...allParameterLabels];
+
+// The text content of each text element, in Spanish
+const spanishPairs = [
+  ["instructions", "Instrucciones"],
+  ["instructionsInput", "Introduzca la cantidad de verdaderos positivos, verdaderos negativos, falsos negativos y falsos positivos en las celdas de abajo."], 
+  ["instructionsExplain", "Cuando los cuatro valores estén definidos podrá ver los valores de las métricas en la tabla que ve a la derecha."],
+  ["parametersColumnLabel", "Métrica"],
+  ["valuesColumnLabel", "Valor (%)"],
+  ["confidenceIntervalsLabel", "Intervalo de confianza"],
+  ["sensitivityLabel", "Sensibilidad"],
+  ["specificityLabel", "Especificidad"],
+  ["positivePredictiveValueLabel", "Valor Predictivo Positivo"],
+  ["negativePredictiveValueLabel", "Valor Predictivo Negativo"],
+  ["prevalenceLabel", "Prevalencia"],
+  ["positiveTestLikelihoodRatioLabel", "Razón de Verosimilitud Prueba+"],
+  ["negativeTestLikelihoodRatioLabel", "Razón de Verosimilitud Prueba-"],
+  ["positiveEntropyReductionLabel", "Reducción de la Entropía Negativa"],
+  ["negativeEntropyReductionLabel", "Reducción de la Entropía Positiva"],
+  ["positiveFScoreLabel", "F-Score Positivo"],
+  ["negativeFScoreLabel", "F-score Negativo"],
+  ["kappaLabel", "Kappa de Cohen"],
+  ["diagnosticAccuracyLabel", "Precisión Diagnóstica"]
+];
+
+const englishPairs = [
+  ["instructions", "Instructions"],
+  ["instructionsInput", "Type your data in the cells on the grid below."], 
+  ["instructionsExplain", "When all four input values are introduced, parameter values are shown on the table to the right."],
+  ["parametersColumnLabel", "Metric"],
+  ["valuesColumnLabel", "Value (%)"],
+  ["confidenceIntervalsLabel", "Confidence interval"],
+  ["sensitivityLabel", "Sensitivity"],
+  ["specificityLabel", "Specificity"],
+  ["positivePredictiveValueLabel", "Positive Predictive Value"],
+  ["negativePredictiveValueLabel", "Negative Predictive Value"],
+  ["prevalenceLabel", "Prevalence"],
+  ["positiveTestLikelihoodRatioLabel", "Positive Test Likelihood Ratio"],
+  ["negativeTestLikelihoodRatioLabel", "Negative Test Likelihood Ratio"],
+  ["positiveEntropyReductionLabel", "Positive Entropy Reduction"],
+  ["negativeEntropyReductionLabel", "Negative Entropy Reduction"],
+  ["positiveFScoreLabel", "Positive F-Score"],
+  ["negativeFScoreLabel", "Negative F-Score"],
+  ["kappaLabel", "Cohen's kappa"],
+  ["diagnosticAccuracyLabel", "Diagnostic Accuracy"]
+];
+
+// The text content of each text element, in English
+
+// The same data as the two arrays above, but as a map
+
+const toSpanish = new Map(spanishPairs);
+const toEnglish = new Map(englishPairs);
+
+// Code run when pressing the 'switch language' button
+
+function switchLanguages ()
+{
+  // Figure out which language we are in
+  const languageButton = document.getElementById(languageButtonId);
+  const englishMode = languageButton.textContent == spanish;
+  const spanishMode = languageButton.textContent == english;
+  if (englishMode)
+  {
+    // Update the content of all text elements
+    for (let i = 0; i < allTextElements.length; i++)
+    {
+      const textElementId = allTextElements[i];
+      console.log(textElementId);
+      document.getElementById(textElementId).textContent = toSpanish.get(textElementId);
+    }
+    // Set the language button content so that language mode flags work and users see the right target language name in the button text
+    languageButton.textContent = english;
+  }
+  if (spanishMode)
+  {
+    // Update the content of all text elements
+    for (let i = 0; i < allTextElements.length; i++)
+    {
+      const textElementId = allTextElements[i];
+      document.getElementById(textElementId).textContent = toEnglish.get(textElementId);
+    }
+    // Set the language button content so that language mode flags work and users see the right target language name in the button text
+    languageButton.textContent = spanish;
+  }
+}
+
+document.getElementById("true_positives").addEventListener('input', updateValues);
+document.getElementById("false_positives").addEventListener('input', updateValues);
+document.getElementById("true_negatives").addEventListener('input', updateValues);
+document.getElementById("false_negatives").addEventListener('input', updateValues);
+
+document.getElementById(languageButtonId).addEventListener("click", switchLanguages);
 
 </script>
 
