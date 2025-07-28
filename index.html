@@ -86,13 +86,6 @@
       </div>
 
       <div class="flex flex-row gap-2">
-        <div class="h-8 w-64 sm:w-80 rounded-lg bg-slate-100 text-center">Bias Ratio</div>
-        <div id="biasRatio" class="h-8 w-24 rounded-lg bg-lime-300 text-center">%</div>
-        <div id="biasRatioLower" class="h-8 w-24 rounded-lg bg-orange-300 text-center">Lower</div>
-        <div id="biasRatioHigher" class="h-8 w-24 rounded-lg bg-orange-300 text-center">Higher</div>
-      </div>
-
-      <div class="flex flex-row gap-2">
         <div class="h-8 w-64 sm:w-80 rounded-lg bg-slate-100 text-center">Positive Test LR</div>
         <div id="positiveTestLikelihoodRatio" class="h-8 w-24 rounded-lg bg-lime-300 text-center">%</div>
         <div id="positiveTestLikelihoodRatioLower" class="h-8 w-24 rounded-lg bg-orange-300 text-center">Lower</div>
@@ -109,15 +102,15 @@
       <div class="flex flex-row gap-2">
         <div class="h-16 sm:h-8 w-64 sm:w-80 rounded-lg bg-slate-100 text-center">Positive Test Entropy Reduction</div>
         <div id="positiveEntropyReduction" class="h-16 sm:h-8 w-24 rounded-lg bg-lime-300 text-center">%</div>
-        <div id="positiveEntropyReductionLower" class="h-16 sm:h-8 w-24 rounded-lg bg-orange-300 text-center">Lower</div>
-        <div id="positiveEntropyReductionHigher" class="h-16 sm:h-8 w-24 rounded-lg bg-orange-300 text-center">Higher</div>
+        <div id="positiveEntropyReductionLower" class="h-16 sm:h-8 w-24 rounded-lg bg-orange-300 text-center"></div>
+        <div id="positiveEntropyReductionHigher" class="h-16 sm:h-8 w-24 rounded-lg bg-orange-300 text-center"></div>
       </div>
 
       <div class="flex flex-row gap-2">
-        <div class="h-16 sm:h-8 w-64 sm:w-80 rounded-lg bg-slate-100 text-center">Positive Test Entropy Reduction</div>
+        <div class="h-16 sm:h-8 w-64 sm:w-80 rounded-lg bg-slate-100 text-center">Negative Test Entropy Reduction</div>
         <div id="negativeEntropyReduction" class="h-16 sm:h-8 w-24 rounded-lg bg-lime-300 text-center">%</div>
-        <div id="negativeEntropyReductionLower" class="h-16 sm:h-8 w-24 rounded-lg bg-orange-300 text-center">Lower</div>
-        <div id="negativeEntropyReductionHigher" class="h-16 sm:h-8 w-24 rounded-lg bg-orange-300 text-center">Higher</div>
+        <div id="negativeEntropyReductionLower" class="h-16 sm:h-8 w-24 rounded-lg bg-orange-300 text-center"></div>
+        <div id="negativeEntropyReductionHigher" class="h-16 sm:h-8 w-24 rounded-lg bg-orange-300 text-center"></div>
       </div>
       
       <div class="flex flex-row gap-2">
@@ -150,7 +143,7 @@
 
 <script>
 
-const allParameters = ["sensitivity", "specificity", "positivePredictiveValue", "negativePredictiveValue", "prevalence", "diagnosticAccuracy", "biasRatio", "positiveTestLikelihoodRatio", "negativeTestLikelihoodRatio", "positiveEntropyReduction", "negativeEntropyReduction", "positiveFScore", "negativeFScore", "kappa"];
+const allParameters = ["sensitivity", "specificity", "positivePredictiveValue", "negativePredictiveValue", "prevalence", "diagnosticAccuracy", "positiveTestLikelihoodRatio", "negativeTestLikelihoodRatio", "positiveEntropyReduction", "negativeEntropyReduction", "positiveFScore", "negativeFScore", "kappa"];
 
 const stderr = (f, truePositives, falseNegatives, falsePositives, trueNegatives) => 1.96 * Math.sqrt(f(truePositives, falseNegatives, falsePositives, trueNegatives) * (1 - f(truePositives, falseNegatives, falsePositives, trueNegatives)) / (truePositives + falsePositives + trueNegatives + falseNegatives));
 
@@ -163,16 +156,14 @@ const diagnosticAccuracy = (truePositives, falseNegatives, falsePositives, trueN
 
 function PositiveTestLikelihoodRatio (truePositives, falseNegatives, falsePositives, trueNegatives)
 {
-  const sens = sensitivity(truePositives, falseNegatives, falsePositives, trueNegatives);
-  const spec = specificity(truePositives, falseNegatives, falsePositives, trueNegatives);
-  return sens / ((1 - spec) * 100);
+  return sensitivity(truePositives, falseNegatives, falsePositives, trueNegatives) / (1 - specificity(truePositives, falseNegatives, falsePositives, trueNegatives));
 }
 
 function NegativeTestLikelihoodRatio (truePositives, falseNegatives, falsePositives, trueNegatives)
 {
-  const sens = sensitivity(truePositives, falseNegatives, falsePositives, trueNegatives);
-  const spec = specificity(truePositives, falseNegatives, falsePositives, trueNegatives);
-  return (1 - sens) / (spec * 100);
+  const falseNegativesRate = falseNegatives / (truePositives + falseNegatives);
+  const trueNegativesRate = trueNegatives / (trueNegatives + falsePositives);
+  return falseNegativesRate / trueNegativesRate;
 }
 
 
@@ -219,10 +210,6 @@ function negativeFScore (truePositives, falseNegatives, falsePositives, trueNega
   return 2 * (npv * s / (npv + s));
 }
 
-const biasRatio = (truePositives, falseNegatives, falsePositives, trueNegatives) => ((truePositives + falsePositives) - (falseNegatives + trueNegatives)) / (truePositives + falseNegatives + falsePositives + trueNegatives);
-const pf = (truePositives, falseNegatives, falsePositives, trueNegatives) => 1;
-const nf = (truePositives, falseNegatives, falsePositives, trueNegatives) => 1;
-
 function kappa (truePositives, falseNegatives, falsePositives, trueNegatives)
 {
   const assumedPositive = falsePositives + truePositives;
@@ -232,6 +219,9 @@ function kappa (truePositives, falseNegatives, falsePositives, trueNegatives)
   return ((2 * (truePositives * trueNegatives - falseNegatives * falsePositives)) / (assumedPositive * actualNegatives + assumedNegative * actualPositives)) / 100
 }
 
+const noConfidenceIntervals = new Set(["positiveEntropyReduction", "negativeEntropyReduction"]);
+const otherStandardError = new Set(["negativeTestLikelihoodRatio", "positiveTestLikelihoodRatio"]);
+
 const formulasByParameter = new Map();
 
 formulasByParameter.set("sensitivity", sensitivity);
@@ -240,7 +230,6 @@ formulasByParameter.set("positivePredictiveValue", positivePredictiveValue);
 formulasByParameter.set("negativePredictiveValue", negativePredictiveValue);
 formulasByParameter.set("prevalence", prevalence);
 formulasByParameter.set("diagnosticAccuracy", diagnosticAccuracy);
-formulasByParameter.set("biasRatio", biasRatio);
 formulasByParameter.set("positiveTestLikelihoodRatio", PositiveTestLikelihoodRatio);
 formulasByParameter.set("negativeTestLikelihoodRatio", NegativeTestLikelihoodRatio);
 formulasByParameter.set("positiveEntropyReduction", positiveEntropyReduction);
@@ -273,13 +262,31 @@ function updateValues ()
         for (let i = 0; i < allParameters.length; i++)
         {
             const valueFormula = formulasByParameter.get(allParameters[i]);
-            const standardError = stderr(valueFormula, truePositives, falseNegatives, falsePositives, trueNegatives);
-            const estimation = valueFormula(truePositives, falseNegatives, falsePositives, trueNegatives);
-            const lower = estimation - standardError;
-            const higher = estimation + standardError;
-            document.getElementById(allParameters[i]).textContent = (valueFormula(truePositives, falseNegatives, falsePositives, trueNegatives)*100).toFixed(1);
-            document.getElementById(allParameters[i] + "Lower").textContent = (lower*100).toFixed(1);
-            document.getElementById(allParameters[i] + "Higher").textContent = (higher*100).toFixed(1);
+            document.getElementById(allParameters[i]).textContent = (valueFormula(truePositives, falseNegatives, falsePositives, trueNegatives)*100).toFixed(2);
+
+            if (!noConfidenceIntervals.has(allParameters[i]))
+            {
+              if (otherStandardError.has(allParameters[i]))
+              {
+                const standardError = 1.96 * Math.sqrt(1 / truePositives + 1 / trueNegatives - 1 / (truePositives + falseNegatives) - 1 / (falsePositives + trueNegatives));
+                const estimation = valueFormula(truePositives, falseNegatives, falsePositives, trueNegatives);
+                const lower = (Math.E ** (Math.log(estimation) - standardError)) / 100;
+                const higher = (Math.E ** (Math.log(estimation) + standardError)) / 100;
+                document.getElementById(allParameters[i]).textContent = (valueFormula(truePositives, falseNegatives, falsePositives, trueNegatives)).toFixed(2);
+                document.getElementById(allParameters[i] + "Lower").textContent = (lower*100).toFixed(2);
+                document.getElementById(allParameters[i] + "Higher").textContent = (higher*100).toFixed(2);
+              }
+              if (!otherStandardError.has(allParameters[i]))
+              {
+                const standardError = stderr(valueFormula, truePositives, falseNegatives, falsePositives, trueNegatives);
+                const estimation = valueFormula(truePositives, falseNegatives, falsePositives, trueNegatives);
+                const lower = estimation - standardError;
+                const higher = estimation + standardError;
+                document.getElementById(allParameters[i]).textContent = (valueFormula(truePositives, falseNegatives, falsePositives, trueNegatives)*100).toFixed(2);
+                document.getElementById(allParameters[i] + "Lower").textContent = (lower*100).toFixed(2);
+                document.getElementById(allParameters[i] + "Higher").textContent = (higher*100).toFixed(2);
+              }
+            }
         }
     }
     else
@@ -287,8 +294,12 @@ function updateValues ()
         for (let i = 0; i < allParameters.length; i++)
         {
             document.getElementById(allParameters[i]).textContent = "%";
-            document.getElementById(allParameters[i] + "Lower").textContent = "Lower";
-            document.getElementById(allParameters[i] + "Higher").textContent = "Higher";
+
+            if (!noConfidenceIntervals.has(allParameters[i]))
+            {
+              document.getElementById(allParameters[i] + "Lower").textContent = "Lower";
+              document.getElementById(allParameters[i] + "Higher").textContent = "Higher";
+            }
         }
     }
 
