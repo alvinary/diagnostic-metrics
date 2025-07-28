@@ -418,6 +418,8 @@ function switchLanguages ()
     // Set the language button content so that language mode flags work and users see the right target language name in the button text
     languageButton.textContent = spanish;
   }
+
+  updateValues();
 }
 
 document.getElementById("true_positives").addEventListener('input', updateValues);
